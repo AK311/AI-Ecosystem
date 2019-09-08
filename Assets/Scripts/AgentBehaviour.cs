@@ -14,18 +14,13 @@ public class AgentBehaviour : MonoBehaviour
     bool ifChasingFood;
     int foodCollected; // to count the no of food consumed;
     Vector2? moveTowardsPosition; //Create a Optional Vector2 means can also have null value 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    
+       
     public void IntializeAgent(float speed,float size,float sense)
     {
-        this.speed = speed;
-        this.size = size;
-        agent.localScale = Vector3.one * size;
-        this.sense = senseTrigger.radius = sense;
+        this.speed = EcoSystemController.instance.GetScaledValue(EcoSystemController.GeneType.speed, speed);
+        this.size = EcoSystemController.instance.GetScaledValue(EcoSystemController.GeneType.size, size);
+        agent.localScale = Vector3.one * this.size;
+        this.sense = senseTrigger.radius = EcoSystemController.instance.GetScaledValue(EcoSystemController.GeneType.sense, sense);
         foodCollected = 0;
         moveTowardsPosition = null;       
     }
@@ -76,6 +71,9 @@ public class AgentBehaviour : MonoBehaviour
 
     public (float speed,float size,float sense) GetChromosomes()
     {
-        return (speed,size,sense);       
+        float retSpeed = EcoSystemController.instance.GetNormalizedValue(EcoSystemController.GeneType.speed, speed);
+        float retSize = EcoSystemController.instance.GetNormalizedValue(EcoSystemController.GeneType.size, size);
+        float retSense = EcoSystemController.instance.GetNormalizedValue(EcoSystemController.GeneType.sense,sense);
+        return (retSpeed,retSize,retSense);       
     }
 }

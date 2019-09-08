@@ -120,6 +120,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &25360710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25360711}
+  m_Layer: 0
+  m_Name: AgentCollection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &25360711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25360710}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &68332291
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,10 +313,16 @@ MonoBehaviour:
   foodPrefab: {fileID: 2151135446214330805, guid: 85a4bc9e0501c429ca8f715c33ce674c,
     type: 3}
   regionWidth: 25
-  agentCount: 0
-  speed: {x: 1, y: 5}
+  agentCount: 5
+  agentParent: {fileID: 25360711}
+  agentPrefab: {fileID: 2470583594907403702, guid: 275c920efaf4d4697ad8ce9e5c323139,
+    type: 3}
+  speed: {x: 1, y: 10}
   size: {x: 1, y: 2}
   sense: {x: 0, y: 10}
+  populationType: 1
+  populationSamples:
+  - {x: 0.5, y: 0.5, z: 0.5}
   mutationFactor: 0.1
 --- !u!1 &1312611198
 GameObject:
@@ -458,10 +494,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
+    - target: {fileID: 2470583594907403702, guid: 275c920efaf4d4697ad8ce9e5c323139,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2470583594907403697, guid: 275c920efaf4d4697ad8ce9e5c323139,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.092186
+      value: -25.1
       objectReference: {fileID: 0}
     - target: {fileID: 2470583594907403697, guid: 275c920efaf4d4697ad8ce9e5c323139,
         type: 3}
