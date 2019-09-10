@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2470583594784011645}
   - component: {fileID: 2470583594784011644}
   - component: {fileID: 2724830979347908056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee396991126e4440bc24213efac62ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 2470583594907403696}
 --- !u!1 &2470583594907403702
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +144,7 @@ GameObject:
   - component: {fileID: 5202908960325406112}
   m_Layer: 0
   m_Name: Diamond
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,3 +239,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00342558daf804a7780435601ec557de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 2470583594907403696}

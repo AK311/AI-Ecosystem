@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class FoodScript : MonoBehaviour
 {
-    AgentBehaviour agent;
-    // Start is called before the first frame update
-    void Start()
-    {
-        agent = GetComponentInParent<AgentBehaviour>();
-    }
-
+    public AgentBehaviour agent;
+   
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.CompareTag("Food"))
