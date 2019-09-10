@@ -48,12 +48,12 @@ public class AgentBehaviour : MonoBehaviour
         return ifChasingFood;
     }
 
-    public void SetPositionToMoveTowards(Vector2? position)
+    public void SetPositionToMoveTowards(Vector2? position,bool type = true)
     {
         if(position.HasValue)
         { 
             moveTowardsPosition = position.Value;
-            ifChasingFood = true;
+            ifChasingFood = type;
         }
         else
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2470583594784011645}
   - component: {fileID: 2470583594784011644}
   - component: {fileID: 2724830979347908056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 5202908960325406112}
   m_Layer: 0
   m_Name: Diamond
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
