@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public sealed class EcoSystemController : MonoBehaviour
 {
@@ -68,6 +69,11 @@ public sealed class EcoSystemController : MonoBehaviour
     }
     public enum AgentReport {kill,pass,crossover};
 
+    //Graphing
+    public readonly string path = "./ProjectGraphs/";
+    string population = "population.csv";
+    string chromosomes = "chromosomes.csv";
+
     void Awake()
     {
         if(!instance)
@@ -78,6 +84,18 @@ public sealed class EcoSystemController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        if(!Directory.Exists(path))
+            Directory.CreateDirectory(path);
+        FileStream f = new FileStream(path+population,FileMode.OpenOrCreate);
+        f.Close();
+        f = new FileStream(path+chromosomes,FileMode.OpenOrCreate);
+        f.Close();
+        StreamWriter fs = new StreamWriter(path+population);
+        fs.Write("Killed,Survived,Crossover\n");
+        fs.Close();
+        fs = new StreamWriter(path+chromosomes);
+        fs.Write("Avg. Speed,Avg. Size,Avg. Sense\n");
+        fs.Close();
     }
     // Start is called before the first frame update
     void Start()
@@ -174,9 +192,10 @@ public sealed class EcoSystemController : MonoBehaviour
 
     void StartNextGeneration()
     {
-        UIController.instance.genText.text = "Generation : " + genCount;
+        UIController.instance.genText.text = "Gen : " + genCount;
+        UpdateChromosomesData();
         ClassifyAgent();
-        Debug.Log("AOK:"+agentToKill.Count);
+        UpdatePopulationData();
         KillAgent(); 
         SurviveAgent();
         CrossoverAgent();
@@ -185,6 +204,33 @@ public sealed class EcoSystemController : MonoBehaviour
         GenerateFood();     
     }
 
+    void UpdatePopulationData()
+    {
+        StreamWriter fs = new StreamWriter(path+population,true);
+        fs.Write(agentToKill.Count+","+agentToSurvive.Count+","+agentToCrossover.Count+"\n");
+        fs.Close();       
+    }
+
+    void UpdateChromosomesData()
+    {
+        float avgSpeed = 0f,avgSize = 0f,avgSense = 0f;
+        foreach(GameObject go in agentCollection)
+        {
+            if(go!=null)
+            {
+                (float speed,float size,float sense) = go.GetComponent<AgentBehaviour>().GetChromosomes();
+                avgSpeed += speed;
+                avgSize += size;
+                avgSense += sense;
+            }
+        }
+        avgSense=avgSense/agentCollection.Count;
+        avgSize=avgSize/agentCollection.Count;
+        avgSpeed=avgSpeed/agentCollection.Count;
+        StreamWriter fs = new StreamWriter(path+chromosomes,true);
+        fs.Write(string.Format("{0:0.0000},{1:0.0000},{2:0.0000}\n",avgSpeed,avgSize,avgSense));
+        fs.Close();
+    }
     void ClassifyAgent()
     {
         foreach(GameObject go in agentCollection)
