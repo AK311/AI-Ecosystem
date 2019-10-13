@@ -595,9 +595,8 @@ MonoBehaviour:
   speed: {x: 1, y: 10}
   size: {x: 1, y: 2}
   sense: {x: 0, y: 10}
-  populationType: 1
-  populationSamples:
-  - {x: 0.5, y: 0.5, z: 0.5}
+  populationType: 2
+  intialConfiguration: {x: 0, y: 0, z: 0}
   survivalRequirement: 5
   crossoverRequirement: 10
   mutationFactor: 0.1

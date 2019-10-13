@@ -42,11 +42,10 @@ public sealed class EcoSystemController : MonoBehaviour
     List<GameObject> agentCollection;
     List<GameObject> agentToKill,agentToSurvive,agentToCrossover;
 
-    public enum IntialPopulationType {uniform,uniformWithMutation,categorizedWithMutation};
+    public enum IntialPopulationType {uniform,uniformWithMutation,randomised};
     [Header("Intialization")]
     public IntialPopulationType populationType;
-    public Vector3[] populationSamples; // used in categorizedwithMutation;
-    
+    public Vector3 intialConfiguration;
     [Header("Selection")]
     public int survivalRequirement;
     public int crossoverRequirement;
@@ -115,32 +114,31 @@ public sealed class EcoSystemController : MonoBehaviour
     {
         Vector2 tempPosition;
         GameObject temp;
-        float mutation = 0f;
-        int sample = 0;
         float tempX,tempY,tempZ;
         for(int i=0;i<agentCount;i++)
         {
             switch(populationType)
             { 
                 case IntialPopulationType.uniformWithMutation:
-                    mutation = mutationFactor;
-                    sample = 0;
+                    float mutation = mutationFactor;
+                    tempX = Mathf.Clamp01(intialConfiguration.x + Random.Range(-mutation,mutation));
+                    tempY = Mathf.Clamp01(intialConfiguration.y + Random.Range(-mutation,mutation));
+                    tempZ = Mathf.Clamp01(intialConfiguration.z + Random.Range(-mutation,mutation));
                 break;
-                case IntialPopulationType.categorizedWithMutation:
-                    mutation = mutationFactor;
-                    sample = Random.Range(0,populationSamples.Length);  
+                case IntialPopulationType.randomised:
+                    tempX = Mathf.Clamp01(Random.value);
+                    tempY = Mathf.Clamp01(Random.value);
+                    tempZ = Mathf.Clamp01(Random.value); 
                 break;
                 default:
-                    mutation = 0f;
-                    sample = 0;
+                    tempX = Mathf.Clamp01(intialConfiguration.x);
+                    tempY = Mathf.Clamp01(intialConfiguration.y);
+                    tempZ = Mathf.Clamp01(intialConfiguration.z);
                 break;          
             }
             tempPosition = GetAgentInstantiationPosition();
             temp = Instantiate(agentPrefab,tempPosition,Quaternion.identity);
             temp.transform.parent = agentParent;
-            tempX = Mathf.Clamp01(populationSamples[sample].x + Random.Range(-mutation,mutation));
-            tempY = Mathf.Clamp01(populationSamples[sample].y + Random.Range(-mutation,mutation));
-            tempZ = Mathf.Clamp01(populationSamples[sample].z + Random.Range(-mutation,mutation));
             temp.GetComponent<AgentBehaviour>().IntializeAgent(tempX,tempY,tempZ);
             agentCollection.Add(temp); 
         }
@@ -361,7 +359,6 @@ public sealed class EcoSystemController : MonoBehaviour
         }
         foodCollection.Clear();
        
-        int count = (int)foodCount;
         switch(foodGenType)
         {
             case FoodGenType.depleting:
@@ -371,6 +368,7 @@ public sealed class EcoSystemController : MonoBehaviour
                 foodCount = Mathf.Max(minFoodCount,agentCollection.Count * foodPerAgent);
             break;        
         }
+        int count = (int)foodCount;
         for(int i=0;i<count;i++)
         {
             Vector2 position = GetRandomPositionOnPlane();
