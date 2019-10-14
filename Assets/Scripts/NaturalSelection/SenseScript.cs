@@ -20,13 +20,13 @@ public class SenseScript : MonoBehaviour
         if(collider.CompareTag("Player"))
         {
             float diff = collider.GetComponentInParent<AgentBehaviour>().GetChromosomes().size - agent.GetChromosomes().size;
-            if(diff>0.1f)
+            if(diff>0.2f)
             {
                 Vector2 newPosition = 2f * agent.transform.localPosition - collider.transform.localPosition;
                 float width = EcoSystemController.instance.regionWidth;
                 newPosition.x = Mathf.Clamp(newPosition.x,-width,width);
                 newPosition.y = Mathf.Clamp(newPosition.y,-width,width);
-                agent.SetPositionToMoveTowards(collider.transform.localPosition);
+                agent.SetPositionToMoveTowards(newPosition);
             }
         }           
     }

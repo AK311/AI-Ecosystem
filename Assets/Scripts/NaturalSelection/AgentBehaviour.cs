@@ -7,8 +7,11 @@ public class AgentBehaviour : MonoBehaviour
     public Transform agent; //sprite for showing size change
     public CircleCollider2D senseTrigger; // the sense trigger through which agent detects food
     //All the Genes
+    [SerializeField]
     float speed = 5f;
+    [SerializeField]
     float size = 1.5f;
+    [SerializeField]
     float sense = 5f;
     //Internal Variables
     bool ifChasingFood;
@@ -27,7 +30,7 @@ public class AgentBehaviour : MonoBehaviour
         this.sense = senseTrigger.radius = EcoSystemController.instance.GetScaledValue(EcoSystemController.GeneType.sense, sense);
         foodCollected = 0;
         moveTowardsPosition = null; 
-        energyDepletionRate = Mathf.Pow(this.size,2f) * Mathf.Pow(this.speed,2f) + this.sense;
+        energyDepletionRate = Mathf.Pow(this.size,3f) * Mathf.Pow(this.speed,2f) + this.sense;
         energyCapacity = 1000f;
         intialPosition = transform.localPosition;
         ifEnergyLeft = true;
